@@ -93,7 +93,7 @@ function Verified({ email }: { email: string | null }) {
         7 pixel-art animals waiting to meet you.
       </p>
       <a
-        href="https://github.com/Synov8/zoo-releases/releases/download/v0.1.1/desktop-zoo_0.1.0_x64-setup.exe"
+        href="https://github.com/Synov8/zoo-releases/releases/download/v0.1.2/desktop-zoo_0.1.0_x64-setup.exe"
         className="inline-block bg-[#c8963a] hover:bg-[#b8862e] text-[#1a1410] font-semibold px-8 py-3 rounded-full transition-colors duration-200"
       >
         Download Desktop Zoo
