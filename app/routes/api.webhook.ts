@@ -43,7 +43,7 @@ export async function action({ request }: Route.ActionArgs) {
     const lowerEmail = email.toLowerCase();
 
     const db = getDb(env);
-    db
+    await db
       .insert(licenses)
       .values({
         email: lowerEmail,
@@ -51,9 +51,9 @@ export async function action({ request }: Route.ActionArgs) {
         stripeSessionId: session.id,
         purchasedAt: new Date(),
       })
-      .onConflictDoNothing()
-      .then(() => sendReceiptEmail(env, lowerEmail))
-      .catch(() => {});
+      .onConflictDoNothing();
+
+    await sendReceiptEmail(env, lowerEmail);
   }
 
   return Response.json({ received: true });

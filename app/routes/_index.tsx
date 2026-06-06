@@ -51,7 +51,7 @@ function Header() {
       <span className="font-display text-xl text-[#c8963a] tracking-tight">
         desktop-zoo
       </span>
-      <span className="text-sm text-[#e0d8c8]/60">v0.1.0</span>
+      <span className="text-sm text-[#e0d8c8]/60">v0.1.1</span>
     </header>
   );
 }
