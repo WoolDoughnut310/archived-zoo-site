@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import type { Route } from "./+types/_index";
 
 export function meta({}: Route.MetaArgs) {
@@ -20,8 +21,15 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Index() {
+  const [ZooComponent, setZooComponent] = useState<React.ComponentType | null>(null);
+
+  useEffect(() => {
+    import("../components/ZooBackground").then((m) => setZooComponent(() => m.default));
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#1a1410] text-[#e0d8c8] font-sans">
+      {ZooComponent && <ZooComponent />}
       <Header />
       <Hero />
       <Features />
