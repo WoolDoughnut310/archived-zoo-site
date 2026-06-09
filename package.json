@@ -12,13 +12,10 @@
     "postinstall": "wrangler types"
   },
   "dependencies": {
-    "drizzle-orm": "^0.45.2",
     "isbot": "^5.1.36",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-router": "^7.10.0",
-    "resend": "^6.12.4",
-    "stripe": "^22.2.0"
+    "react-router": "^7.10.0"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.40.0",

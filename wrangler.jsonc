@@ -3,14 +3,6 @@
   "name": "zoo",
   "compatibility_date": "2026-06-06",
   "main": "./workers/app.ts",
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "zoo",
-      "database_id": "f8e0e6c1-8090-4111-ad50-bc0de14ae58c",
-      "migrations_dir": "drizzle"
-    }
-  ],
   "observability": {
     "enabled": true
   },

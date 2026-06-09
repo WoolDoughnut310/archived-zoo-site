@@ -1,6 +1,3 @@
-import { useFetcher } from "react-router";
-import { useEffect } from "react";
-
 import type { Route } from "./+types/_index";
 
 export function meta({}: Route.MetaArgs) {
@@ -23,23 +20,12 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Index() {
-  const fetcher = useFetcher();
-  type FetcherData = { url?: string; error?: string };
-  const fetcherData = fetcher.data as FetcherData | undefined;
-
-  useEffect(() => {
-    if (fetcherData?.url) {
-      window.location.href = fetcherData.url;
-    }
-  }, [fetcherData]);
-
   return (
     <div className="min-h-screen bg-[#1a1410] text-[#e0d8c8] font-sans">
       <Header />
       <Hero />
       <Features />
       <Animals />
-      <Pricing fetcher={fetcher} fetcherData={fetcherData} />
       <Footer />
     </div>
   );
@@ -51,7 +37,14 @@ function Header() {
       <span className="font-display text-xl text-[#c8963a] tracking-tight">
         desktop-zoo
       </span>
-      <span className="text-sm text-[#e0d8c8]/60">v0.1.2</span>
+      <div className="flex items-center gap-3">
+        <span className="text-sm text-[#e0d8c8]/60">v0.2.0</span>
+        <a href="https://github.com/synov8/zoo" target="_blank" rel="noopener noreferrer" className="text-[#e0d8c8]/40 hover:text-[#e0d8c8] transition-colors">
+          <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/>
+          </svg>
+        </a>
+      </div>
     </header>
   );
 }
@@ -82,10 +75,10 @@ function Hero() {
         Seven pixel-art animals with real personalities. They roam your screen, react to your mouse, and keep you company while you work.
       </p>
       <a
-        href="#pricing"
+        href="https://github.com/Synov8/zoo/releases/download/v0.2.0/desktop-zoo_0.2.0_x64-setup.exe"
         className="inline-block bg-[#c8963a] hover:bg-[#b8862e] text-[#1a1410] font-semibold px-8 py-3 rounded-full transition-colors duration-200"
       >
-        Get Desktop Zoo — $4.99
+        Download Desktop Zoo — Free
       </a>
     </section>
   );
@@ -109,8 +102,8 @@ const features = [
   },
   {
     emoji: "🌙",
-    title: "30-day offline grace",
-    desc: "Buy once, download, play. No subscription. No account needed. Your zoo works offline for a full month between check-ins.",
+    title: "Fully offline",
+    desc: "No account, no subscription, no data collected. Just download and go. Your zoo runs entirely on your machine.",
   },
 ];
 
@@ -170,60 +163,6 @@ function Animals() {
             <p className="text-xs text-[#e0d8c8]/50 mt-1">{a.desc}</p>
           </div>
         ))}
-      </div>
-    </section>
-  );
-}
-
-function Pricing({
-  fetcher,
-  fetcherData,
-}: {
-  fetcher: ReturnType<typeof useFetcher>;
-  fetcherData: { url?: string; error?: string } | undefined;
-}) {
-  return (
-    <section id="pricing" className="px-6 py-20 max-w-5xl mx-auto text-center">
-      <h2 className="font-display text-3xl md:text-4xl mb-4 text-[#e0d8c8]">
-        One price. Forever.
-      </h2>
-      <p className="text-[#e0d8c8]/60 mb-10">No subscriptions. No hidden fees.</p>
-      <div className="max-w-sm mx-auto rounded-3xl p-8 bg-[rgba(255,255,255,0.04)] border border-white/5">
-        <div className="font-display text-5xl text-[#c8963a] mb-1">$4.99</div>
-        <div className="text-sm text-[#e0d8c8]/50 mb-6">one-time purchase</div>
-        <ul className="text-left text-sm space-y-2 mb-8 text-[#e0d8c8]/70">
-          <li className="flex items-center gap-2">
-            <span className="text-[#c8963a]">✓</span> All 7 pixel-art animals
-          </li>
-          <li className="flex items-center gap-2">
-            <span className="text-[#c8963a]">✓</span> 30-day offline mode
-          </li>
-          <li className="flex items-center gap-2">
-            <span className="text-[#c8963a]">✓</span> All future updates
-          </li>
-          <li className="flex items-center gap-2">
-            <span className="text-[#c8963a]">✓</span> No account required
-          </li>
-        </ul>
-        <fetcher.Form method="POST" action="/api/checkout">
-          <input
-            type="email"
-            name="email"
-            required
-            placeholder="your@email.com"
-            className="w-full px-4 py-3 rounded-xl bg-[#1a1410] border border-white/10 text-[#e0d8c8] placeholder:text-[#e0d8c8]/30 mb-3 focus:outline-none focus:border-[#c8963a]/50 transition-colors"
-          />
-          {fetcherData?.error && (
-            <p className="text-sm text-red-400 mb-3 text-left">{fetcherData.error}</p>
-          )}
-          <button
-            type="submit"
-            disabled={fetcher.state !== "idle"}
-            className="w-full bg-[#c8963a] hover:bg-[#b8862e] disabled:opacity-50 text-[#1a1410] font-semibold px-8 py-3 rounded-xl transition-colors duration-200"
-          >
-            {fetcher.state !== "idle" ? "Redirecting..." : "Buy Now — $4.99"}
-          </button>
-        </fetcher.Form>
       </div>
     </section>
   );
